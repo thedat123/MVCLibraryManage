@@ -1,0 +1,67 @@
+﻿@{
+    ViewData["Title"] = "Login/Register";
+}
+
+<div class="login-wrapper">
+    <div class="form-box">
+        <div class="button-box">
+            <div id="switch-btn"></div>
+            <div class="toggle-btn">
+                <button type="button" class="button-box__toggle-btn" id="login-state" onclick="login()">Đăng nhập</button>
+                <button type="button" class="button-box__toggle-btn" id="register-state" onclick="register()">Đăng ký</button>
+            </div>
+        </div>
+
+        <!-- Đăng nhập -->
+        <a asp-controller="Home" asp-action="Index" class="logo-link">
+            <img src="~/img/main_logo.png" alt="" class="logo-brand">
+        </a>
+
+        <form asp-action="LoginRegister" method="post" id="login" class="input-group" style="margin-top: 40px; left: 50px;">
+            <div class="unsuccessful-message">@ViewData["Message"]</div>
+            <div class="input-item">
+                <i class="fa-solid fa-user"></i>
+                <input type="text" class="input-field" id="login-email" name="email" placeholder="Email" required />
+            </div>
+            <div class="input-item">
+                <i class="fa-solid fa-key"></i>
+                <input id="login-pass" type="password" class="input-field" name="password" placeholder="Mật khẩu" required />
+            </div>
+            <button type="submit" class="submit-btn-log">Đăng nhập</button>
+            <a asp-page="/Login/ForgetPass/ForgetPassword" class="input-group__forget">Quên mật khẩu</a>
+        </form>
+
+        <form action="/Login/RegisterFunc" method="post" id="register" class="input-group RegisterAcc" onsubmit="return validateForm(event)">
+            <div class="unsuccessful-message" id="error"></div>
+            <div class="input-item">
+                <i class="fa-solid fa-envelope"></i>
+                <input type="email" id="register-email" name="email" class="input-field" placeholder="Nhập Email" required />
+            </div>
+            <div class="input-item">
+                <i class="fa-solid fa-user"></i>
+                <input type="text" id="register-name" name="name" class="input-field" placeholder="Nhập Họ tên" required />
+            </div>
+            <div class="input-item">
+                <i class="fa-solid fa-map-marker-alt"></i>
+                <input type="text" id="register-address" name="address" class="input-field" placeholder="Nhập Địa chỉ" required />
+            </div>
+            <div class="input-item">
+                <i class="fa-solid fa-key"></i>
+                <input type="password" id="register-pass" name="password" class="input-field" placeholder="Nhập mật khẩu" required />
+            </div>
+            <div class="input-item">
+                <i class="fa-solid fa-key"></i>
+                <input type="password" id="register-confirmpass" name="confirmPassword" class="input-field" placeholder="Xác nhận mật khẩu" required />
+            </div>
+            <button type="submit" class="submit-btn-register">Đăng ký</button>
+        </form>
+
+
+
+        <a asp-controller="Home" asp-action="Index" class="home-link"><i class="fa-solid fa-chevron-left"></i>Về trang chủ</a>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/js/login-register.js"></script>

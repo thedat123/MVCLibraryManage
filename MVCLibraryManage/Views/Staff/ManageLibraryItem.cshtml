@@ -1,0 +1,308 @@
+﻿@model LibraryManageViewModel
+@{
+    ViewData["Title"] = "Manage Library Item";
+}
+
+<link rel="stylesheet" href="~/css/manage-item.css" asp-append-version="true" />
+
+<div class="main__information" style="width: 70%">
+    <div class="main__information-detail">
+        <div class="main__information-add d-flex justify-content-end align-items-center">
+            <div class="button__add">
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#create-item-form">Thêm Item +</button>
+            </div>
+        </div>
+
+        <!-- Form sắp xếp và tìm kiếm -->
+        <div class="d-flex justify-content-between align-items-center mb-5">
+            <!-- Sort Form -->
+            <form class="menu-sort-user" method="get" asp-action="FilteredLibraryItems" asp-controller="Staff">
+                <label style="margin-left: 2%">Sắp xếp theo: </label>
+                <select name="sortBy" class="menu-sort-user-box" id="sort-select" style="height: fit-content;">
+                    <!option value="Id-asc" @(ViewBag.sortBy == "Id-asc" || ViewBag.sortBy == null ? "selected" : "")>Tăng theo ID</!option>
+                    <!ption value="Id-desc" @(ViewBag.sortBy == "Id-desc" ? "selected" : "")>Giảm theo ID</!ption>
+                    <!option value="Title-asc" @(ViewBag.sortBy == "Title-asc" ? "selected" : "")>Tăng theo tên</!option>
+                    <!option value="Title-desc" @(ViewBag.sortBy == "Title-desc" ? "selected" : "")>Giảm theo tên</!option>
+                    <!option value="Author-asc" @(ViewBag.sortBy == "Author-asc" ? "selected" : "")>Tăng theo tác giả</!option>
+                    <!option value="Author-desc" @(ViewBag.sortBy == "Author-desc" ? "selected" : "")>Giảm theo tác giả</!option>
+                </select>
+                <input name="search" value="@ViewBag.searchText" type="hidden" />
+                <input type="submit" style="visibility: hidden; width:0" />
+            </form>
+
+            <!-- Search Form -->
+            <form class="menu-search-user-box" method="get" asp-action="FilteredLibraryItems" asp-controller="Staff">
+                <input class="search-user-box-input" type="text" name="search" placeholder="Nhập tên sản phẩm" value="@ViewBag.searchText">
+                <input class="search-user-box-hidden" name="sortBy" value="@ViewBag.sortBy ?? "Id-asc"" type="hidden" />
+                <button type="submit" class="search-user-box-btn" style="height: fit-content;">
+                    <i class="fas fa-magnifying-glass"></i>
+                </button>
+            </form>
+        </div>
+
+        <!-- Table hiển thị danh sách LibraryItem -->
+        <table class="content-table">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Title</th>
+                    <th>Author</th>
+                    <th>Publication Date</th>
+                    <th>Item Type</th>
+                    <th>Options</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Items)
+                {
+                    <tr>
+                        <td>@item.Id</td>
+                        <td>@item.Title</td>
+                        <td>@item.Author</td>
+                        <td>@item.PublicationDate.ToShortDateString()</td>
+                        <td>@item.GetType().Name</td>
+                        <td>
+                            <button class="btn btn-info fa fa-eye" data-id="@item.Id" title="View"></button>
+                            <button class="btn btn-warning fa fa-pencil-alt" data-id="@item.Id" title="Edit"></button>
+                            <button class="btn btn-danger fa fa-ban" data-id="@item.Id" title="Delete"></button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        @Html.Partial("_Paging", Model.PagingModel)
+    </div>
+</div>
+
+<!-- Modal for View Item -->
+<div class="modal-view-read" id="viewModal" tabindex="-1" role="dialog" aria-labelledby="viewModalLabel" aria-hidden="true">
+    <div class="modal-view" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title" id="viewModalLabel">View Item Details</h1>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <img id="viewImage" class="img-fluid" style="width: 70%;height: auto;" />
+                <p><strong>Title:</strong> <span id="viewTitle"></span></p>
+                <p><strong>Author:</strong> <span id="viewAuthor"></span></p>
+                <p><strong>Publication Date:</strong> <span id="viewPublicationDate"></span></p>
+                <p><strong>Item Type:</strong> <span id="viewItemType"></span></p>
+                <div id="bookFields" style="display:none;">
+                    <p><strong>Number of Pages:</strong> <span id="viewNumberOfPages"></span></p>
+                </div>
+
+                <div id="dvdFields" style="display:none;">
+                    <p><strong>Runtime:</strong> <span id="viewRuntime"></span></p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal for Edit Item -->
+<div class="modal-view-edit" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel" aria-hidden="true">
+    <div class="modal-edit" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title" id="updateModalLabel">Edit Item</h1>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="modal-edit-form" method="post" enctype="multipart/form-data" asp-action="Update" asp-controller="Staff">
+                    <input type="hidden" id="updateLibraryItemId" name="Id" />
+
+                    <div class="row">
+                        <!-- Current Image Display -->
+                        <div class="col-md-12">
+                            <div class="form-group text-center">
+                                <label>Current Image:</label>
+                                <div id="updateImagePreview" style="margin: 10px 0;">
+                                    <img src="" alt="Current Image" id="currentImage" style="max-width: 100%; max-height: 200px;" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Update Image Field -->
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="updateImage">Update Image</label>
+                                <input type="file" class="form-control-file" id="updateImage" name="Image" accept="image/*" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <!-- Column 1 -->
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="updateTitle">Title</label>
+                                <input type="text" class="form-control" id="updateTitle" name="Title" required />
+                            </div>
+                        </div>
+
+                        <!-- Column 2 -->
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="updateAuthor">Author</label>
+                                <input type="text" class="form-control" id="updateAuthor" name="Author" required />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <!-- Column 1 -->
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="updatePublicationDate">Publication Date</label>
+                                <input type="date" class="form-control" id="updatePublicationDate" name="PublicationDate" required />
+                            </div>
+                        </div>
+
+                        <!-- Column 2 -->
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="updateItemType">Item Type</label>
+                                <input type="text" class="form-control" id="updateItemType" name="ItemType" disabled />
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Conditional Book and DVD Fields -->
+                    <div class="row">
+                        <div id="bookUpdateFields" class="col-md-6 form-group" style="display:none;">
+                            <label for="updateNumberOfPages">Number of Pages:</label>
+                            <input type="number" class="form-control" id="updateNumberOfPages" name="NumberOfPages" />
+                        </div>
+
+                        <div id="dvdUpdateFields" class="col-md-6 form-group" style="display:none;">
+                            <label for="updateRuntime">Runtime</label>
+                            <input type="number" class="form-control" id="updateRuntime" name="Runtime" />
+                        </div>
+                    </div>
+
+                    <input type="submit" id="update-button" class="btn btn-primary" value="Update Data" />
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal for Delete Item -->
+<div class="modal-delete" id="confirm" tabindex="-1" role="dialog" aria-labelledby="confirm-label" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title" id="confirm-label"></h1>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <form id="modal-delete-form" method="post" asp-action="Delete" asp-controller="Staff">
+                <div class="modal-body">
+                
+                    <div class="text-center wirningColor">
+                        <i class="fas fa-exclamation-triangle fa-4x"></i>
+                    </div>
+                    <br />
+                    <center>
+                        <p class="message"></p>
+                        <input name="Id" id="deleteLibraryItemId" style="display:none;" />
+                    </center>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-danger dismiss" data-dismiss="modal"></button>
+                    <button type="submit" id="delete-button" class="btn btn-primary confirm"></button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal-view-add" id="create-item-form" tabindex="-1" role="dialog" aria-labelledby="createItemLabel" aria-hidden="true">
+    <div class="modal-add" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title" id="createItemLabel">Add New Item</h1>
+                <button type="button" class="close" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form id="modal-add-form" method="post" asp-action="Add" asp-controller="Staff" enctype="multipart/form-data">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="createTitle">Title</label>
+                                <input type="text" class="form-control" id="createTitle" name="Title" required />
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="createAuthor">Author</label>
+                                <input type="text" class="form-control" id="createAuthor" name="Author" required />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="createPublicationDate">Publication Date</label>
+                                <input type="date" class="form-control" id="createPublicationDate" name="PublicationDate" required />
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="createItemType">Item Type</label>
+                                <select class="form-control" id="createItemType" name="Type" style="height: 50px;" required>
+                                    <option value="LibraryItem">Select Item Type</option>
+                                    <option value="Book">Book</option>
+                                    <option value="DVD">DVD</option>
+                                    <option value="Magazine">Magazine</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6" id="bookAddFields" style="display: none;">
+                            <div class="form-group">
+                                <label for="createNumberOfPages">Number of Pages</label>
+                                <input type="text" class="form-control" id="createNumberOfPages" name="NumberOfPages" />
+                            </div>
+                        </div>
+                        <div class="col-md-6" id="dvdAddFields" style="display: none;">
+                            <div class="form-group">
+                                <label for="createRuntime">Runtime</label>
+                                <input type="text" class="form-control" id="createRuntime" name="Runtime" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="file__image">
+                        <p class="image__text">Image</p>
+                        <input type="file" class="form-control-file" id="image" name="fileupload" accept=".jpg,.jpeg,.png" required style="
+                               margin-bottom: 20px;">
+                    </div>
+
+                    <button type="submit" id="add-button" class="btn btn-primary">Add Item</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="~/js/manage-libraryItem.js"></script>
+

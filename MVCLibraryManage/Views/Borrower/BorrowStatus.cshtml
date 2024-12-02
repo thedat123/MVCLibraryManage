@@ -1,0 +1,75 @@
+﻿@model BorrowStatusViewModel
+
+@{
+    ViewData["Title"] = "Library Cart";
+}
+
+<link rel="stylesheet" href="~/css/borrow-status.css" asp-append-version="true" />
+
+<div class="list-item cart">
+    <div style="font-size:x-large">Danh sách đang mượn</div>
+    <table class="table text-center table-bordered">
+        <thead style="background-color: var(--div-color); font-size: 16px;">
+            <tr class="table-header">
+                <th class="cart__table-col col-1" scope="col">ID</th>
+                <th class="cart__table-col col-3" scope="col">Hình ảnh</th>
+                <th class="cart__table-col col-3" scope="col">Tiêu đề</th>
+                <th class="cart__table-col col-1" scope="col">Tác giả</th>
+                <th class="cart__table-col col-4" scope="col">Ngày phát hành</th>
+                <th class="cart__table-col col-4" scope="col">Ngày mượn</th>
+            </tr>
+        </thead>
+        <tbody style="font-size: large">
+            @foreach (var borrowingItem in Model.BorrowingHistory)
+            {
+                <tr>
+                    <td>@borrowingItem.BorrowingHistoryId</td>
+                    <td>
+                        @if (borrowingItem.LibraryItem != null && !string.IsNullOrEmpty(borrowingItem.LibraryItem.ImagePath))
+                        {
+                            <img src="@borrowingItem.LibraryItem.ImagePath" alt="Book Image" style="width:100px; height:auto;" />
+                        }
+                        else
+                        {
+                            <span>No Image</span>
+                        }
+                    </td>
+                    <td>@borrowingItem.LibraryItem?.Title</td>
+                    <td>@borrowingItem.LibraryItem?.Author</td>
+                    <td>@borrowingItem.LibraryItem?.PublicationDate.ToString("dd/MM/yyyy")</td>
+                    <td>@borrowingItem.BorrowDate.ToString("dd/MM/yyyy")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <!-- Pagination Controls -->
+    <div class="pagination">
+        @if (ViewBag.CurrentPage > 1)
+        {
+            <a href="@Url.Action("BorrowStatus", new { page = ViewBag.CurrentPage - 1, sortBy = ViewBag.sortBy, search = ViewBag.searchText })">Previous</a>
+        }
+
+        @for (int i = 1; i <= ViewBag.TotalPages; i++)
+        {
+            if (i == ViewBag.CurrentPage)
+            {
+                <span>@i</span>
+            }
+            else
+            {
+                <a href="@Url.Action("BorrowStatus", new { page = i, sortBy = ViewBag.sortBy, search = ViewBag.searchText })">@i</a>
+            }
+        }
+
+        @if (ViewBag.CurrentPage < ViewBag.TotalPages)
+        {
+            <a href="@Url.Action("BorrowStatus", new { page = ViewBag.CurrentPage + 1, sortBy = ViewBag.sortBy, search = ViewBag.searchText })">Next</a>
+        }
+    </div>
+    @Html.Partial("_Paging", Model.PagingModel)
+</div>
+
+<script src="~/js/borrowStatus.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

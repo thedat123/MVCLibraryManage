@@ -1,0 +1,43 @@
+﻿:root {
+    --white-color: #fff;
+    --text-color: #333;
+    --main-color: royalblue;
+    --div-color: #FFF8EC;
+    --black-color: #000;
+    --border-color: #dbdbdb;
+    --admin-color: #FA5230;
+    --table-color: #FB7559;
+    --yellow-color: #FF9F0D;
+    --pink-color: #fff1db;
+    --table-color-admin: cornflowerblue;
+}
+
+* {
+    box-sizing: inherit;
+}
+
+body {
+    /*    position: relative;
+    min-height: 100vh;*/
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+html {
+    font-size: 62.5%;
+    line-height: 1.6rem;
+    font-family: 'Roboto', sans-serif;
+    box-sizing: border-box;
+}
+
+.grid__full-width {
+    width: 100%;
+}
+
+.grid__row {
+    display: flex;
+    flex-wrap: wrap;
+}

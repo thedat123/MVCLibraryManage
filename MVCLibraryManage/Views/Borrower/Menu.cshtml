@@ -1,0 +1,91 @@
+﻿@model LibraryManageViewModel
+@{
+    ViewData["Title"] = "Library Book Menu";
+}
+
+<link rel="stylesheet" href="~/css/menu.css" asp-append-version="true" />
+<div class="breadcrumb-division">
+    <ol class="breadcrumb breadcrumb__edit">
+        <li class="breadcrumb-item"><a asp-page="/Index">Home</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Library Book Menu</li>
+    </ol>
+</div>
+<div class="row jtf-center menu">
+    <div class="col-3">
+        <form class="filter-menu">
+            <p>Book Categories</p>
+            <a asp-page="/User/Library/BookMenu" class="category-filter-name" id="cate-all">All</a>
+            @foreach (var category in Model.Items.Select(x => x.GetType().Name).Distinct())
+            {
+                <a asp-page="/User/Library/BookMenu" asp-route-category="@category" class="category-filter-name" id="cate-@category">@category</a>
+            }
+        </form>
+    </div>
+    <div class="col-9">
+        <div class="d-flex justify-content-between align-items-center mb-5">
+            <!-- Sorting Form -->
+            <form class="menu-sort" method="get" asp-action="FilteredLibraryItems" asp-controller="Borrower">
+                    <label style="margin-left: 2%">Sắp xếp theo: </label>
+                    <select name="sortBy" class="menu-sort-box" id="sort-select" style="height: fit-content;">
+                        <!option value="Id-asc" @(ViewBag.sortBy == "Id-asc" || ViewBag.sortBy == null ? "selected" : "")>Tăng theo ID</!option>
+                        <!option value="Id-desc" @(ViewBag.sortBy == "Id-desc" ? "selected" : "")>Giảm theo ID</!option>
+                        <!option value="Title-asc" @(ViewBag.sortBy == "Title-asc" ? "selected" : "")>Tăng theo tên</!option>
+                        <!option value="Title-desc" @(ViewBag.sortBy == "Title-desc" ? "selected" : "")>Giảm theo tên</!option>
+                        <!option value="Author-asc" @(ViewBag.sortBy == "Author-asc" ? "selected" : "")>Tăng theo tác giả</!option>
+                        <!option value="Author-desc" @(ViewBag.sortBy == "Author-desc" ? "selected" : "")>Giảm theo tác giả</!option>
+                    </select>
+                    <input name="search" value="@ViewBag.searchText" type="hidden" />
+                    <input type="submit" style="visibility: hidden; width: 0" />
+            </form>
+
+            <!-- Searching Form -->
+            <form class="menu-search-box" method="get" asp-action="FilteredLibraryItems" asp-controller="Borrower">
+                <input class="search-box-input" type="text" name="search" placeholder="Enter library item title" value="@ViewBag.searchText">
+                <input class="search-user-box-hidden" name="sortBy" value="@ViewBag.sortBy ?? "Id-asc"" type="hidden" />
+                <button type="submit" class="search-box-btn">
+                    <i class="fas fa-magnifying-glass"></i>
+                </button>
+            </form>
+        </div>
+
+
+        <div class="alert alert-success alert-menu-edit alert-dismissible fade" role="alert" style="display: none;">
+            <i class="bi-check-circle-fill"></i>
+            <strong class="mx-1 mr-4">Success!</strong> Library item added to borrow list!
+            <button type="button" class="btn-close" aria-label="Close"><i class="fa-solid fa-times"></i></button>
+        </div>
+
+        <div class="alert alert-danger alert-menu-edit alert-dismissible fade" role="alert" style="display: none;">
+            <i class="fa-solid fa-times-circle" style="color: red"></i>
+            <strong class="mx-1 mr-4">Failed!</strong>
+            <span></span>
+            <button type="button" class="btn-close" aria-label="Close"><i class="fa-solid fa-times"></i></button>
+        </div>
+        <div class="card-deck list-card-item d-flex flex-wrap">
+            @foreach (var i in Model.Items)
+            {
+                <div class="card-edit">
+                    <a asp-page="/User/Library/BookDetail" asp-route-id="@i.Id">
+                        <img src="@i.ImagePath" class="card-img-top card-img-edit" alt="Book Cover" />
+                    </a>
+                    <div class="card-body">
+                        <div class="card-detail">
+                            <a asp-page="/User/Library/BookDetail" asp-route-id="@i.Id" class="card-title">@i.Title</a>
+                            <p class="card-sub">@i.Author</p>
+                        </div>
+                        <button class="submit-btn card-btn add-btn" data-id="@i.Id" >
+                            <i class="fas fa-book"></i> Borrow Item
+                        </button>
+                    </div>
+                </div>
+            }
+        </div>
+        @Html.Partial("_Paging", Model.PagingModel)
+    </div>
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="~/js/menu.js"></script>
+

@@ -1,0 +1,426 @@
+﻿/* Information */
+.main__information {
+    width: 70%;
+    align-self: center;
+    margin: auto;
+}
+
+.main__information-add i {
+    line-height: 40px;
+    transform: translateX(-20px);
+    margin-bottom: 10px;
+}
+
+.page-item.active .page-link {
+    z-index: 0;
+}
+
+.main__table-text {
+    font-size: 18px;
+}
+
+.main__table-form {
+    display: flex;
+    font-size: 18px;
+}
+
+    .main__table-form button {
+        background-color: orange;
+        margin: 0 auto;
+        display: block;
+    }
+
+.search__form input[type="search"] {
+    width: 300px;
+}
+
+.input-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+    .input-wrapper input[type="search"] {
+        padding: 5px;
+        padding-left: 10px; /* adjust the padding to accommodate the icon */
+        border-radius: 10px;
+        font-size: 16px;
+    }
+
+    .input-wrapper i {
+        position: absolute;
+        top: 50%;
+        right: 10px;
+        transform: translateY(-50%);
+        z-index: 0;
+        transition: transform 0.2s ease-in-out;
+    }
+
+        .input-wrapper i:hover {
+            color: #ee4d2d;
+        }
+
+.col-md-3 .form__comboBox select[name="combobox_Item"] {
+    color: var(--text-color);
+    border-radius: 8px;
+    width: 180px;
+    font-size: 16px;
+    padding: 5px;
+}
+
+.form-group select {
+    padding: 2px 5px;
+    outline: none;
+    border: 1px solid #ced4da;
+    background: #fff;
+    padding-left: 5px;
+}
+
+.form-group input:focus {
+    outline: none;
+    box-shadow: none;
+    border: 1px solid #ced4da;
+}
+/* End Information */
+/* .STT, .Option__ban, .checkbox, .Option__eye, .ID, .Option__pencil{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+} */
+/* End Table */
+
+/* Modal Add */
+
+.modal__account-information {
+    background-color: var(--white-color);
+    padding: 40px;
+    margin: 0 auto;
+    width: 50%;
+    border-radius: 8px;
+    position: relative;
+}
+
+.modal__account-update.open {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    margin-top: 70px;
+}
+
+.modal__account-update {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.8);
+    display: none;
+}
+
+.account__name input[type="search"], .account__telephone input[type="search"], .account__email input[type="search"], .account__adress input[type="search"],
+.account__city-details input[type="search"], .account__district-details input[type="search"], .account__ward input[type="search"] {
+    height: 40px;
+    font-size: 16px;
+    border: 1px solid #495057;
+}
+
+.account__telephone, .account__adress, .account__date, .account__district-details {
+    padding: 10px 0 5px 10px !important;
+}
+
+.account__position, .account__email, .account__city-details, .account__ward {
+    padding: 10px 0 5px 0 !important;
+}
+
+/* .account__city-district {
+    display: flex;
+    padding-top: 20px;
+}
+.account__ward-address {
+    padding-bottom: 20px;
+} */
+
+/* .form-group-start{
+    transform: translateX(-15px);
+} */
+
+.form__comboBoxList select[name="combobox_Item"], .account__date input[type="date"] {
+    height: 40px;
+    width: 100%;
+    padding: 6px;
+}
+
+
+/* .form__group-district {
+    transform: translateX(-105px);
+} */
+
+.button__account-save button {
+    width: 100%;
+    height: 40px;
+    background-color: var(--admin-color);
+    color: var(--white-color);
+    border: 0;
+    padding: 0;
+    border-radius: 6px;
+}
+
+    .button__account-save button:hover {
+        cursor: pointer;
+        opacity: 0.8;
+    }
+
+    .button__account-save button:focus {
+        outline: none;
+    }
+
+.button__account-save {
+    padding-top: 20px;
+}
+/* End Modal Add */
+
+/* Modal Full Info */
+.modal__info-full.open {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: auto;
+    width: 100%;
+}
+
+.modal__info-full {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.8);
+    display: none;
+}
+
+.staff__info-full p {
+    font-size: 1.6rem;
+    margin-bottom: 10px;
+}
+
+.modal__info-details {
+    background-color: var(--white-color);
+    font-size: 16px;
+    border-radius: 8px;
+    width: 40%;
+    padding: 30px 40px;
+    position: relative;
+}
+
+.content-table tbody tr .Option i:hover {
+    cursor: pointer;
+    opacity: 0.6;
+}
+
+.content-table tbody tr .Option {
+    font-size: 20px;
+}
+
+
+.modal__staff-label {
+    font-size: 20px;
+}
+
+    .modal__staff-label .modal__staff-cate {
+        font-weight: 600;
+    }
+
+.staff__info-key, .staff__info-value {
+    padding-left: 0 !important;
+}
+
+.staff__address {
+    padding-bottom: 40px;
+}
+
+.exit-btn-user {
+    width: 100%;
+    font-size: 1.6rem;
+}
+/* End Modal Full Info */
+
+.form__comboBox.cbb_sort select {
+    margin-left: 10px;
+    border-radius: 8px;
+    width: 180px;
+    font-size: 16px;
+    padding: 5px;
+}
+
+label.control-label {
+    line-height: 35px;
+}
+
+/* Sort + Search Customer */
+.menu-sort-user {
+    transform: translateX(-2%);
+    width: 50%;
+    font-size: 1.8rem;
+    font-weight: 500;
+}
+
+
+.menu-sort-user-box {
+    width: 50%;
+    height: 36px;
+    font-weight: 400;
+    font-size: 1.6rem;
+    border: 2px solid #c6c6c6;
+    border-radius: 6px;
+    padding: 0 10px;
+    outline: none;
+    opacity: 0.7;
+    margin-left: 10px;
+}
+
+.menu-search-user-box {
+    width: 40%;
+    height: 36px;
+    border: 2px solid #c6c6c6;
+    border-radius: 6px;
+    position: relative;
+    overflow: hidden;
+    font-size: 1.6rem;
+}
+
+.search-user-box-input {
+    border: 0;
+    outline: none;
+    height: 100%;
+    width: 100%;
+    padding: 0px;
+    padding-left: 10px;
+    color: var(--text-color);
+}
+
+    .search-user-box-input::placeholder {
+        font-size: 1.6rem;
+        line-height: 100%;
+        font-weight: 400;
+    }
+
+.search--user-box-btn:hover {
+    opacity: 0.6;
+}
+
+.search-user-box-btn:focus,
+.search--user-box-btn:focus-visible {
+    outline: none;
+}
+
+.menu-sort-user {
+    transform: translateX(-2%);
+    width: 50%;
+    font-size: 1.8rem;
+    font-weight: 500;
+}
+
+/* Sort + Seach Staff */
+.menu-sort-staff-box {
+    height: 36px;
+    font-weight: 400;
+    font-size: 1.6rem;
+    border: 2px solid #c6c6c6;
+    border-radius: 6px;
+    padding: 0 10px;
+    outline: none;
+    opacity: 0.7;
+    margin-left: 10px;
+}
+
+.menu-search-staff-box {
+    width: 40%;
+    height: 36px;
+    border: 2px solid #c6c6c6;
+    border-radius: 6px;
+    position: relative;
+    overflow: hidden;
+    font-size: 1.6rem;
+}
+
+.search-staff-box-input {
+    border: 0;
+    outline: none;
+    height: 100%;
+    width: 100%;
+    padding: 0px;
+    padding-left: 10px;
+    color: var(--text-color);
+}
+
+    .search-staff-box-input::placeholder {
+        font-size: 1.6rem;
+        line-height: 100%;
+        font-weight: 400;
+    }
+
+.search-user-box-btn {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 25%;
+    height: 102%;
+    border: none;
+    color: var(--text-color);
+    background-color: #C0C0C0;
+}
+
+.search-staff-box-btn {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 25%;
+    height: 102%;
+    border: none;
+    color: var(--text-color);
+    background-color: #C0C0C0;
+}
+
+    .search-staff-box-btn:hover {
+        opacity: 0.6;
+    }
+
+    .search-staff-box-btn:focus,
+    .search-staff-box-btn:focus-visible {
+        outline: none;
+    }
+
+.menu-sort-staff {
+    transform: translateX(-2%);
+    width: 50%;
+    font-size: 1.8rem;
+    font-weight: 500;
+}
+
+.menu-sort-staff-role {
+    transform: translateX(-2%);
+    width: 50%;
+    font-size: 1.8rem;
+    font-weight: 500;
+}
+
+.menu-sort-staff-role-box {
+    height: 36px;
+    font-weight: 400;
+    font-size: 1.6rem;
+    border: 2px solid #c6c6c6;
+    border-radius: 6px;
+    padding: 0 10px;
+    outline: none;
+    opacity: 0.7;
+    margin-left: 10px;
+}
+
+/* Danger */
+.alert.alert-danger {
+    padding: 10px;
+    text-align: center;
+}

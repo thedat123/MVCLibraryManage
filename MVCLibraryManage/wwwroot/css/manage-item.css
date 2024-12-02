@@ -1,0 +1,260 @@
+﻿/* Main Layout */
+.main__information {
+    padding: 30px;
+    margin: 20px auto;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+}
+
+/* Header Section */
+.main__information-detail {
+    margin-bottom: 30px;
+}
+
+/* Add Button Styles */
+.button__add button {
+    background: linear-gradient(135deg, #4361ee, #3a54d6);
+    color: white;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 6px rgba(67, 97, 238, 0.3);
+}
+
+    .button__add button:hover {
+        background: #3a54d6;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(67, 97, 238, 0.4);
+    }
+
+/* Search and Sort Section */
+.menu-sort-user,
+.menu-search-user-box {
+    margin: 20px 0;
+}
+
+    .menu-sort-user select,
+    .search-user-box-input {
+        padding: 10px 16px;
+        border: 2px solid #e9ecef;
+        border-radius: 8px;
+        font-size: 15px;
+        background-color: #f8f9fa;
+        transition: border-color 0.3s ease;
+        cursor: pointer;
+    }
+
+        .menu-sort-user select:hover,
+        .menu-sort-user select:focus,
+        .search-user-box-input:focus {
+            border-color: #4361ee;
+            outline: none;
+        }
+
+.search-user-box-btn {
+    padding: 12px 20px;
+    background: #4361ee;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    margin-left: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+    .search-user-box-btn:hover {
+        background: #3a54d6;
+    }
+
+/* Table Styles */
+.content-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 25px 0;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+}
+
+    .content-table thead tr {
+        background: linear-gradient(135deg, #4361ee, #3a54d6);
+        color: white;
+        text-align: left;
+        font-weight: 500;
+    }
+
+    .content-table th,
+    .content-table td {
+        padding: 16px 20px;
+        font-size: 15px;
+    }
+
+    .content-table tbody tr {
+        transition: all 0.3s ease;
+    }
+
+        .content-table tbody tr:nth-of-type(even) {
+            background-color: #f8fafc;
+        }
+
+        .content-table tbody tr:hover {
+            background-color: #edf2f7;
+            transform: translateY(-2px);
+        }
+
+/* Action Buttons */
+.btn {
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin: 0 4px;
+    border: none;
+}
+
+.btn-info {
+    background-color: #00b4d8;
+    color: white;
+}
+
+.btn-warning {
+    background-color: #ffd60a;
+    color: #000;
+}
+
+.btn-danger {
+    background-color: #ef233c;
+    color: white;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Modal Base Styles */
+.modal-view-read,
+.modal-view-edit,
+.modal-view-add,
+.modal-delete {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: none;
+    z-index: 1050;
+    overflow-y: auto;
+    align-items: center;
+    justify-content: center;
+}
+
+    .modal-view-read.open,
+    .modal-view-edit.open,
+    .modal-view-add.open,
+    .modal-delete.open {
+        display: flex;
+    }
+
+/* Modal Content */
+.modal-content {
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+    width: 100%;
+    max-width: 600px;
+    margin: 20px;
+    animation: modalFadeIn 0.3s ease-out;
+    overflow: hidden;
+    font-size: 20px;
+}
+
+/* Modal Header */
+.modal-header {
+    background: linear-gradient(135deg, #4361ee, #3a54d6);
+    color: white;
+    border-radius: 16px 16px 0 0;
+    padding: 20px 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.modal-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+/* Modal Body */
+.modal-body {
+    padding: 20px 30px;
+    max-height: 70vh;
+    overflow-y: auto;
+}
+
+/* Modal Footer */
+.modal-footer {
+    padding: 20px;
+    border-top: 1px solid #e9ecef;
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+}
+
+    .modal-footer .btn {
+        padding: 10px 20px;
+        border-radius: 8px;
+        font-size: 15px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .modal-footer .btn-primary {
+        background: #4361ee;
+        color: white;
+        border: none;
+    }
+
+        .modal-footer .btn-primary:hover {
+            background: #3a54d6;
+            transform: translateY(-2px);
+        }
+
+/* Animations */
+@keyframes modalFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .modal-content {
+        margin: 10px;
+    }
+
+    .modal-footer {
+        flex-direction: column;
+    }
+
+        .modal-footer .btn {
+            width: 100%;
+        }
+}
+
+

@@ -1,0 +1,103 @@
+﻿/* Alert Styling */
+.alert-menu-edit {
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    border-radius: 12px;
+    border: 1px solid transparent;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    box-shadow: var(--shadow-sm);
+    font-size: 1.2rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+    .alert-menu-edit i {
+        font-size: 1.8rem;
+    }
+
+    .alert-menu-edit .btn-close {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: transparent;
+        border: none;
+        font-size: 1.2rem;
+        color: inherit;
+        cursor: pointer;
+        transition: transform 0.3s ease;
+    }
+
+        .alert-menu-edit .btn-close:hover {
+            transform: scale(1.2);
+        }
+
+    /* Success Alert */
+    .alert-menu-edit.alert-success {
+        background: linear-gradient(135deg, #d1f7e0, #b7e4c7);
+        color: #155724;
+        border: 1px solid #9fd2aa;
+    }
+
+        .alert-menu-edit.alert-success i {
+            color: #28a745;
+        }
+
+    /* Danger Alert */
+    .alert-menu-edit.alert-danger {
+        background: linear-gradient(135deg, #f8d7da, #f6c1c5);
+        color: #721c24;
+        border: 1px solid #f5b4b9;
+    }
+
+        .alert-menu-edit.alert-danger i {
+            color: #dc3545;
+        }
+
+    /* Info Alert */
+    .alert-menu-edit.alert-info {
+        background: linear-gradient(135deg, #d1ecf1, #bee6ea);
+        color: #0c5460;
+        border: 1px solid #a6d9e2;
+    }
+
+        .alert-menu-edit.alert-info i {
+            color: #17a2b8;
+        }
+
+    /* Warning Alert */
+    .alert-menu-edit.alert-warning {
+        background: linear-gradient(135deg, #fff3cd, #ffe6a8);
+        color: #856404;
+        border: 1px solid #ffd384;
+    }
+
+        .alert-menu-edit.alert-warning i {
+            color: #ffc107;
+        }
+
+    /* Alert Hover Effect */
+    .alert-menu-edit:hover {
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-lg);
+    }
+
+/* Smooth Animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.alert-menu-edit {
+    animation: fadeIn 0.3s ease-in-out;
+}

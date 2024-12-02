@@ -1,0 +1,244 @@
+﻿/* General Layout */
+.menu {
+    margin: 3rem auto;
+    font-size: 1.6rem;
+    background: #ffffff;
+    border-radius: 16px;
+    color: var(--text-color);
+    max-width: 1400px;
+    padding: 2rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+/* Filter Menu Styling */
+.filter-menu {
+    background: #f8fafc;
+    padding: 2rem;
+    border-radius: 12px;
+    position: sticky;
+    top: 2rem;
+}
+
+    .filter-menu p {
+        font-size: 1.8rem;
+        font-weight: 600;
+        color: #1a202c;
+        margin-bottom: 1.5rem;
+        border-bottom: 2px solid #e2e8f0;
+        padding-bottom: 1rem;
+    }
+
+.category-filter-name {
+    display: block;
+    padding: 1rem 1.5rem;
+    margin: 0.5rem 0;
+    color: #4a5568;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+}
+
+    .category-filter-name:hover {
+        background: #edf2f7;
+        color: var(--main-color);
+        transform: translateX(5px);
+    }
+
+    .category-filter-name.active {
+        background: var(--main-color);
+        color: white;
+    }
+
+/* Search and Sort Section */
+.menu-search-box {
+    display: flex;
+    gap: 1rem;
+    max-width: 400px;
+}
+
+.search-box-input {
+    flex: 1;
+    padding: 1rem 1.5rem;
+    border: 2px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 1.5rem;
+    transition: all 0.2s ease;
+}
+
+    .search-box-input:focus {
+        border-color: var(--main-color);
+        box-shadow: 0 0 0 3px rgba(var(--main-color-rgb), 0.1);
+        outline: none;
+    }
+
+.search-box-btn {
+    padding: 1rem 2rem;
+    background: var(--main-color);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+    .search-box-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(var(--main-color-rgb), 0.2);
+    }
+
+.menu-sort-box {
+    padding: 1rem 1.5rem;
+    border: 2px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 1.5rem;
+    background: white;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+    .menu-sort-box:focus {
+        border-color: var(--main-color);
+        outline: none;
+    }
+
+/* Book Cards */
+.card-deck {
+    gap: 2rem;
+}
+
+.card-edit {
+    flex: 0 0 calc(33.333% - 2rem);
+    border: none;
+    border-radius: 12px;
+    overflow: hidden;
+    background: white;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+}
+
+    .card-edit:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    }
+
+.card-img-edit {
+    height: 300px;
+    object-fit: cover;
+    transition: all 0.3s ease;
+}
+
+.card-edit:hover .card-img-edit {
+    transform: scale(1.05);
+}
+
+.card-body {
+    padding: 2rem;
+}
+
+.card-title {
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: #1a202c;
+    text-decoration: none;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    margin-bottom: 1rem;
+}
+
+.card-sub {
+    color: #718096;
+    font-size: 1.4rem;
+    margin-bottom: 2rem;
+}
+
+.card-btn {
+    width: 100%;
+    padding: 1.2rem;
+    background: var(--main-color);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+
+    .card-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(var(--main-color-rgb), 0.2);
+    }
+
+/* Alert Styling */
+.alert-menu-edit {
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    border-radius: 8px;
+    border: none;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+    .alert-menu-edit i {
+        font-size: 2rem;
+    }
+
+    .alert-menu-edit.alert-success {
+        background: #d1e7dd;
+        color: #0f5132;
+    }
+
+    .alert-menu-edit.alert-danger {
+        background: #f8d7da;
+        color: #842029;
+    }
+
+.btn-close {
+    background: none;
+    border: none;
+    font-size: 1.6rem;
+    margin-left: auto;
+    cursor: pointer;
+    padding: 0.5rem;
+    opacity: 0.7;
+    transition: opacity 0.2s ease;
+}
+
+    .btn-close:hover {
+        opacity: 1;
+    }
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+    .card-edit {
+        flex: 0 0 calc(50% - 2rem);
+    }
+}
+
+@media (max-width: 768px) {
+    .menu {
+        padding: 1rem;
+        margin: 1rem;
+    }
+
+    .card-edit {
+        flex: 0 0 100%;
+    }
+
+    .filter-menu {
+        margin-bottom: 2rem;
+        position: static;
+    }
+
+    .menu-search-box {
+        max-width: 100%;
+        margin-top: 1rem;
+    }
+}

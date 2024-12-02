@@ -1,0 +1,97 @@
+﻿@model BorrowViewModel
+
+@{
+    ViewData["Title"] = "Return Item Status";
+}
+
+<link rel="stylesheet" href="~/css/return-item-status.css" asp-append-version="true" />
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-pzjw8f+ua7Kw1TIq0v8Fq1Gjw3sG7dbXjslrRryr5KNu3eI0hYr67zFpmU4wsPpX" crossorigin="anonymous">
+
+<div class="container mt-5">
+    <div class="main__information">
+
+        <!-- Success Message Alert -->
+        <div class="alert alert-success alert-menu-edit alert-dismissible fade" role="alert" style="display: none;">
+            <i class="bi-check-circle-fill"></i>
+            <strong class="mx-1 mr-4">Success!</strong> <span></span>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+
+        <!-- Error Message Alert -->
+        <div class="alert alert-danger alert-menu-edit alert-dismissible fade" role="alert" style="display: none;">
+            <i class="fa-solid fa-times-circle" style="color: red"></i>
+            <strong class="mx-1 mr-4">Failed!</strong> <span></span>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+
+
+        <h2 class="text-center mb-4">Danh sách mượn cần trả</h2>
+
+        <table class="table content-table table-bordered table-hover">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Tên người mượn</th>
+                    <th scope="col">Tên Item</th>
+                    <th scope="col">Ngày mượn</th>
+                    <th scope="col">Hành động</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var borrowingItem in Model.BorrowingHistory)
+                {
+                    <tr>
+                        <td>@borrowingItem.BorrowingHistoryId</td>
+                        <td>@borrowingItem.BorrowerName</td>
+                        <td>@borrowingItem.ItemName</td>
+                        <td>@borrowingItem.BorrowDate.ToString("dd/MM/yyyy")</td>
+                        <td>
+                            @if (!borrowingItem.ReturnDate.HasValue)
+                            {
+                                <form class="return-item-form" method="post" action="@Url.Action("ReturnItem", "Staff")">
+                                    <input type="hidden" name="BorrowingHistoryId" value="@borrowingItem.BorrowingHistoryId" />
+                                    <button type="button" class="btn btn-success btn-return-item">Trả item</button>
+                                </form>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        <!-- Pagination Controls -->
+        @Html.Partial("_Paging", Model.PagingModel)
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zyHkLX49KOh2P5C5reG6Y6Mjm2d8dfP7vXaeXwVX" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-pzjw8f+ua7Kw1TIq0v8Fq1Gjw3sG7dbXjslrRryr5KNu3eI0hYr67zFpmU4wsPpX" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+      $(document).ready(function () {
+        $('.btn-return-item').click(function (e) {
+            e.preventDefault();
+            var form = $(this).closest('form');
+            $.ajax({
+                url: form.attr('action'),
+                type: 'POST',
+                data: form.serialize(),
+                success: function (response) {
+                    if (response.success) {
+                        $('.alert-success span').text(response.message);
+                        $('.alert-success').fadeIn(500).delay(3000).fadeOut();
+
+                        form.closest('tr').remove();
+                    } else {
+                        $('.alert-danger span').text(response.message || 'Failed to return item!');
+                        $('.alert-danger').fadeIn(500).delay(3000).fadeOut();
+                    }
+                },
+                error: function () {
+                    $('.alert-danger span').text('Failed to return item!');
+                    $('.alert-danger').fadeIn(500).delay(3000).fadeOut();
+                }
+            });
+        });
+    });
+
+</script>
